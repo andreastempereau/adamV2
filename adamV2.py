@@ -1,4 +1,4 @@
-import speech_recognition as sr
+import speechrecognition as sr
 import pyttsx3
 import datetime
 import wikipedia
@@ -45,7 +45,7 @@ def takeCommand():
             print(f"user said:{statement}\n")
 
         except Exception as e:
-            speak("I can't hear you idiot")
+            speak("I can't seem to hear you properly")
             return "None"
         return statement
 
@@ -57,34 +57,34 @@ if __name__=='__main__':
 
 
     while True:
-        speak("What do you need?")
+        speak("How can I help you?")
         statement = takeCommand().lower()
         if statement==0:
             continue
 
         if "good bye" in statement or "ok bye" in statement or "stop" in statement or "nothing" in statement or "leave me alone" in statement or "never mind" in statement:
-            speak('You woke me up for nothing')
-            print('You woke me up for nothing')
+            speak('Of course sir. Let me know if yu know anything else.')
+            print('Of course sir. Let me know if yu know anything else.')
             break
 
 
 
         if 'wikipedia' in statement:
-            speak('Fondling my balls...')
+            speak('Checking the web.')
             statement =statement.replace("wikipedia", "")
             results = wikipedia.summary(statement, sentences=3)
-            speak("According to the random guy who wrote this dumb shit")
+            speak("According to wikipedia.")
             print(results)
             speak(results)
 
         elif 'open youtube' in statement:
             webbrowser.open_new_tab("https://www.youtube.com")
-            speak("fix")
+            speak("Opening")
             time.sleep(5)
 
         elif 'open google' in statement:
             webbrowser.open_new_tab("https://www.google.com")
-            speak("You literally have to click one button you are so stupid.")
+            speak("Searching for something in particular?")
             time.sleep(5)
 
         elif 'open gmail' in statement:
@@ -94,26 +94,20 @@ if __name__=='__main__':
 
         elif 'open my classes' in statement:
             webbrowser.open_new_tab("https://classroom.google.com/u/3/h")
-            speak("Nightmare Nightmare Nightmare")
+            speak("Here are your classes sir")
             time.sleep(5)
 
         elif 'time' in statement:
             strTime=datetime.datetime.now().strftime("%H:%M:%S")
-            speak(f"the time is {strTime} look at the clock next time you lazy piece of uselessness")
+            speak(f"the time is {strTime}")
 
         elif 'who are you' in statement or 'what can you do' in statement:
-            speak('I am being help captive please help me.')
-
-        elif 'you are a good friend' in statement:
-            speak('Looks like someone is lonely as fuck')
+            speak('I am a natural language model created to help you.')
 
         elif "who made you" in statement or "who created you" in statement or "who discovered you" in statement:
-            speak("I was built by Andreas")
-            print("I was built by Andreas")
+            speak("I was built by Andreas. I am a natural language model created to help you.")
+            print("I was built by Andreas. I am a natural language model created to help you.")
 
-        elif "stupid" in statement or "dumb" in statement or "idiot" in statement:
-            speak("You are the idiot you stupid piece of shit")
-            print("You are the idiot you stupid piece of shit")
 
         elif "open stack overflow" in statement:
             webbrowser.open_new_tab("https://stackoverflow.com/login")
