@@ -178,9 +178,4 @@ if __name__=='__main__':
 
             speak("Do you need anything else sir?")
 
-time.sleep(4)
-
-
-
-
-
+time.sleep(2)
