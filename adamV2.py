@@ -1,4 +1,4 @@
-import speechrecognition as sr
+import speech_recognition as sr
 import pyttsx3
 import datetime
 import wikipedia
@@ -9,6 +9,7 @@ import subprocess
 import wolframalpha
 import json
 import requests
+import subprocess
 
 
 print('Booting up...')
@@ -16,7 +17,7 @@ print('Booting up...')
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
 engine.setProperty('voice','voices[1].id')
-
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
 def speak(text):
     engine.say(text)
@@ -55,16 +56,15 @@ wishMe()
 
 if __name__=='__main__':
 
-
+    speak("What can I do for you?")
     while True:
-        speak("How can I help you?")
         statement = takeCommand().lower()
         if statement==0:
             continue
 
         if "good bye" in statement or "ok bye" in statement or "stop" in statement or "nothing" in statement or "leave me alone" in statement or "never mind" in statement:
-            speak('Of course sir. Let me know if yu know anything else.')
-            print('Of course sir. Let me know if yu know anything else.')
+            speak('Of course sir. Let me know if you need anything else.')
+            print('Of course sir. Let me know if you need anything else.')
             break
 
 
@@ -76,6 +76,9 @@ if __name__=='__main__':
             speak("According to wikipedia.")
             print(results)
             speak(results)
+        elif 'open fusion' in statement:
+            speak("A new project sir?")
+            subprocess.Popen('C:\\Users\\Andre\\Desktop\\Fusion360.lnk')
 
         elif 'open youtube' in statement:
             webbrowser.open_new_tab("https://www.youtube.com")
@@ -86,6 +89,14 @@ if __name__=='__main__':
             webbrowser.open_new_tab("https://www.google.com")
             speak("Searching for something in particular?")
             time.sleep(5)
+            statement = takeCommand().lower()
+            if 'not really' in statement or 'no' in statement:
+                speak("Of course... Just browsing then.")
+            elif 'yeah can you help me' in statement:
+                speak("What can I search for you?")
+                statement = takeCommand().lower()
+                speak("Let me see what I can find for you.")
+                webbrowser.get(chrome_path).open(statement)
 
         elif 'open gmail' in statement:
             webbrowser.open_new_tab("https://www.gmail.com")
@@ -115,11 +126,11 @@ if __name__=='__main__':
 
         elif 'search'  in statement:
             statement = statement.replace("search", "")
-            webbrowser.open_new_tab(statement)
+            webbrowser.get(chrome_path).open(statement)
             time.sleep(5)
 
         elif 'ask' in statement:
-            speak('I can answer to computational and geographical questions and what question do you want to ask now')
+            speak('I can answer to computational and geographical questions. What question do you want to ask now?')
             question=takeCommand()
             app_id="U7T44K-25U4986UWV"
             client = wolframalpha.Client('U7T44K-25U4986UWV')
@@ -132,6 +143,12 @@ if __name__=='__main__':
         elif "log off" in statement or "sign out" in statement:
             speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
             subprocess.call(["shutdown", "/l"])
+
+        elif "no" in statement:
+            speak("Sure thing. Goodbye.")
+            break
+        
+        speak("Do you need anything else sir?")
 
 time.sleep(5)
 
