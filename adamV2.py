@@ -16,8 +16,15 @@ print('Booting up...')
 startUp = False
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
-engine.setProperty('voice','voices[1].id')
+engine.setProperty('voice','voices[2].id')
 chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+
+def find_files(filename, search_path):
+   result = []
+   for root, dir, files in os.walk(search_path):
+      if filename in files:
+         result.append(os.path.join(root, filename))
+   return result
 
 def speak(text):
     engine.say(text)
@@ -128,6 +135,30 @@ if __name__=='__main__':
                     speak("Let me see what I can find for you.")
                     kt.search(statement)
                     time.sleep(4)
+            elif 'file search' in statement:
+                speak("What can I find for you sir?")
+                statement = takeCommand().lower()
+                try:
+                    speak("I found your file sir...")
+                    speak("The path i" + find_files(statement,"C:") + "..I printed it out in the terminal for you as well.")
+                    print(find_files(statement,"C:"))
+                except Exception as e:
+                    speak("I cannot seem to find the file... Maybe type it in?")
+                    statement = takeCommand().lower()
+                    if 'sure' in statement or 'yes' in statement or 'yeah' in statement or 'ok' in statement:
+                        speak('Of course sir.. I have created a line in the terminal for you to put the filename in..')
+                        fileName = input('Type in file name here: ')
+                        speak("Thank you sir... Your file location is printed out in the terminal")
+                        print(find_files(fileName,"C:"))
+                        statement = takeCommand().lower()
+                        if 'read' in statement:
+                            speak("Of course sir...")
+                            speak(find_files(fileName,"C:"))
+                        else:
+                            statement = 'dfgrfs'
+                    else:
+                        speak("Of course sir... Apologies for failing to find it..")
+                        time.sleep(2)
 
             elif 'open gmail' in statement:
                 webbrowser.open_new_tab("https://www.gmail.com")
@@ -172,6 +203,8 @@ if __name__=='__main__':
                 speak("Of course sir...")
                 startUp = False
                 break
+            elif 'dfgrfs' in statement:
+                time.sleep(1)
             else:
                 speak("I apologize.. I cannot seem to match a request...")
                 time.sleep(1)
