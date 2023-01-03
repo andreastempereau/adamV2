@@ -11,6 +11,16 @@ import json
 import requests
 import subprocess
 import pywhatkit as kt
+import math
+import pandas_datareader as web
+import numpy as np
+import pandas as pd
+from tensorflow import keras
+from sklearn.preprocessing import MinMaxScaler
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
+import matplotlib.pyplot as plt
+import adamKerasStockPredictor
 
 print('Booting up...')
 startUp = False
@@ -82,7 +92,7 @@ if __name__=='__main__':
 
             if "cancel request" in statement:
                 speak("Of course sir... I will ignore your request")
-                time.sleep(3);
+                time.sleep(3)
 
             elif "good bye" in statement or "ok bye" in statement or "stop" in statement or "nothing" in statement or "leave me alone" in statement or "never mind" in statement or "shutdown" in statement:
                 speak('Of course sir. Let me know if you need anything else.')
@@ -96,6 +106,7 @@ if __name__=='__main__':
                 speak("According to wikipedia.")
                 print(results)
                 speak(results)
+            
             elif 'open fusion' in statement:
                 #OPEN FUSION HERE
                 speak("Let me get that started for you...")
@@ -135,7 +146,7 @@ if __name__=='__main__':
                     speak("Let me see what I can find for you.")
                     kt.search(statement)
                     time.sleep(4)
-            elif 'file search' in statement:
+            elif 'file search' in statement or 'find a file' in statement:
                 speak("What can I find for you sir?")
                 statement = takeCommand().lower()
                 try:
@@ -159,7 +170,17 @@ if __name__=='__main__':
                     else:
                         speak("Of course sir... Apologies for failing to find it..")
                         time.sleep(2)
-
+            elif 'stock price' in statement:
+                speak("Creating a Keras Model... Stand by please...")
+                speak("It seems the next predicted price should be " + adamKerasStockPredictor.trainingDataFunction())
+                print(adamKerasStockPredictor.trainingDataFunction())
+                statement = takeCommand().lower()
+                if 'model' in statement or 'graph' in statement:
+                    speak("Of course sir...")
+                    adamKerasStockPredictor.closePricePlot()
+                else:
+                    statement = 'dfgrfs'
+                time.sleep(2)
             elif 'open gmail' in statement:
                 webbrowser.open_new_tab("https://www.gmail.com")
                 speak("Google Mail open now")
