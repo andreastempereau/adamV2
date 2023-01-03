@@ -120,9 +120,9 @@ def trainingDataFunction():
      # print(valid)
 
      # Get the quote
-     apple_quote = web.DataReader('APPL', data_source='yahoo', start='2014-01-01', end='2021-10-22')
+     stock_quote = web.DataReader('APPL', data_source='yahoo', start='2014-01-01', end='2022-10-22')
      # Create new dataframe
-     new_df = apple_quote.filter(['Close'])
+     new_df = stock_quote.filter(['Close'])
 
      # Get the last 60 day close price values and convert dataframe into an array
      last_60_days = new_df[-60:].values
