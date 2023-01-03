@@ -157,8 +157,8 @@ if __name__=='__main__':
 
             elif 'search'  in statement:
                 statement = statement.replace("search", "")
-                webbrowser.get(chrome_path).open(statement)
-                time.sleep(4)
+                kt.search(statement)
+                time.sleep(3)
 
             elif "log off" in statement or "sign out" in statement:
                 speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
