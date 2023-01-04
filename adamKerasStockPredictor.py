@@ -12,6 +12,10 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 import matplotlib.pyplot as plt
+import datetime as dt
+import yfinance as yfin
+yfin.pdr_override()
+
 plt.style.use('fivethirtyeight')
 
 def closePricePlot():
@@ -28,11 +32,11 @@ def closePricePlot():
      plt.show()
      print('First Section Run: OK')
      # Narrowed down on Close Price
-     data = df.filter                                  (['Close'])
+     data = df.filter(['Close'])
      #This filter can be changed by changing whatever in this  /\/\
 
 def trainingDataFunction():
-     df = web.DataReader('AAPL', data_source='yahoo', start = '2014-01-01', end='2021-10-18')
+     df = web.get_data_yahoo('AAPL', start='2014-01-01', end='2021-10-18')
      # Need to redefine /\ as the original is in a seperate function
 
      data = df.filter(['Close'])
@@ -145,4 +149,4 @@ def trainingDataFunction():
      # Undo the scaler
      pred_price = scaler.inverse_transform(pred_price)
 
-     return pred_price
+     print(pred_price)
