@@ -22,5 +22,21 @@ from keras.models import Sequential
 from keras.layers import Dense, LSTM
 import matplotlib.pyplot as plt
 import adamKerasStockPredictor
+outputString = ""
+fullFileName = "adamTestFile.py"
+fileIndexInt = 0
+fileOutputPath = ""
+fileExtension = ".py"
+fileSearchBoolean = True
+fileCheckerIndex = 0
 
-adamKerasStockPredictor.trainingDataFunction()
+for dirpath, dirnames, filenames in os.walk("c:\\"): 
+     for filename in filenames: 
+          if filename.endswith(".py"): 
+               outputString +=(os.path.join(dirpath, filename))
+fileIndexInt = outputString.find(fullFileName)
+fileCheckerIndex = fileIndexInt-1
+while fileSearchBoolean:
+     if outputString[fileIndexInt:fileIndexInt-1] != ":":
+          fileOutputPath = outputString[fileIndexInt + len(fileExtension):fileIndexInt-1]
+     

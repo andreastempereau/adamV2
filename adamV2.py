@@ -30,12 +30,13 @@ voices=engine.getProperty('voices')
 engine.setProperty('voice','voices[2].id')
 chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
-def find_files(filename, search_path):
-   result = []
-   for root, dir, files in os.walk(search_path):
-        if filename in files:
-            result.append(os.path.join(root, filename))
-   return result
+outputString = ""
+def findFile(endingNotation):
+    for dirpath, dirnames, filenames in os.walk("c:\\"): 
+        for filename in filenames: 
+            if filename.endswith(endingNotation): 
+                outputString +=(os.path.join(dirpath, filename))
+    return outputString
 
 def speak(text):
     engine.say(text)
@@ -148,12 +149,13 @@ if __name__=='__main__':
                     kt.search(statement)
                     time.sleep(4)
             elif 'file search' in statement or 'find a file' in statement or 'find me a file' in statement:
-                speak("What can I find for you sir?")
+                speak("What does the file end in sir?")
                 statement = takeCommand().lower()
                 statement.replace(" ", "")
+                speak("I will try to find your file. Please note this may take a few minutes as I am searching your entire drive")
                 try:
-                    speak("I found your file sir... The path is " + find_files(statement,"C:") + "..I printed it out in the terminal for you as well.")
-                    print(find_files(statement,"C:"))
+                    print(findFile(statement))
+                    speak("I found your file sir... I printed it out in the terminal for you.")
                 except Exception as e:
                     speak("I cannot seem to find the file... Maybe type it in?")
                     statement = takeCommand().lower()
@@ -163,13 +165,23 @@ if __name__=='__main__':
                             speak("I have created a line in the terminal for you to put the filename in..")
                             fileName = input('Type in file name here: ')
                             try:
-                                print(find_files(fileName,"C:"))
+                                print(findFile(fileName))
                                 fileSearchLoop = False
                                 speak("Thank you sir... Your file location is printed out in the terminal")
                                 statement = takeCommand().lower()
                                 if 'read' in statement:
-                                    speak("Of course sir...")
-                                    speak(find_files(fileName,"C:"))
+                                    if len(findFile(fileName)) > 50:
+                                        speak("It is rather long sir... Speaking it may take a very long time... Might I suggest jsut reading it?")
+                                        statement = takeCommand().lower()
+                                        if 'no' in statement or 'nah' in statement or 'read it to me' in statement:
+                                            speak("Sure thing sir.. You know best...")
+                                            speak(findFile(fileName))
+                                        else:
+                                            speak("Splendid... It is still in the terminal for you to find")
+                                            statement = 'dfgrfs'
+                                    else:
+                                        speak("Of course sir..")
+                                        speak(findFile(fileName))
                                 else:
                                     statement = 'dfgrfs'
                                 time.sleep(1)
