@@ -192,6 +192,7 @@ if __name__=='__main__':
                                     fileSearchLoop = True
                                 else:
                                     speak("Apologies for failing to find it...")
+                                    fileSearchLoop = False
                                     statement = 'dfgrfs'
 
                     else:

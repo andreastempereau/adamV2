@@ -28,15 +28,22 @@ fileIndexInt = 0
 fileOutputPath = ""
 fileExtension = ".py"
 fileSearchBoolean = True
-fileCheckerIndex = 0
+fileCheckerBackIndex = 0
+fileCheckerFrontIndex = 0
 
 for dirpath, dirnames, filenames in os.walk("c:\\"): 
      for filename in filenames: 
           if filename.endswith(".py"): 
                outputString +=(os.path.join(dirpath, filename))
 fileIndexInt = outputString.find(fullFileName)
-fileCheckerIndex = fileIndexInt-1
+fileCheckerBackIndex = fileIndexInt-1
+fileCheckerFrontIndex = fileIndexInt
 while fileSearchBoolean:
-     if outputString[fileIndexInt:fileIndexInt-1] != ":":
-          fileOutputPath = outputString[fileIndexInt + len(fileExtension):fileIndexInt-1]
-     
+     if outputString[fileCheckerBackIndex:fileCheckerFrontIndex] != ":":
+          fileOutputPath = outputString[fileCheckerBackIndex:fileIndexInt + len(fullFileName)]
+          fileCheckerBackIndex -= 1
+          fileCheckerFrontIndex -=1
+     if outputString[fileCheckerBackIndex:fileIndexInt] == ":":
+          fileSearchBoolean = False
+          fileOutputPath = outputString[fileCheckerBackIndex-1:fileIndexInt + len(fullFileName)]
+print(fileOutputPath)
