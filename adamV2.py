@@ -83,12 +83,10 @@ if __name__=='__main__':
         if "adam" in statement:
             startUp = True
             wishMe()
-            speak("What can I do for you?")
         if "perform cold shutdown" in statement:
             speak("I am performing a cold shutdown now...")
             break
         while startUp:
-            statement = takeCommand().lower()
             if statement==0:
                 continue
 
@@ -252,12 +250,15 @@ if __name__=='__main__':
                 speak("Of course sir...")
                 startUp = False
                 break
+            elif 'adam' in statement:
+                speak("What can I do for you?")
+                statement = takeCommand().lower()
+                continue
             elif 'dfgrfs' in statement:
                 time.sleep(1)
             else:
                 speak("I apologize.. I cannot seem to match a request...")
                 time.sleep(1)
-
             speak("Do you need anything else sir?")
 
 time.sleep(2)
