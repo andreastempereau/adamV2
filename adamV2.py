@@ -21,6 +21,9 @@ from keras.models import Sequential
 from keras.layers import Dense, LSTM
 import matplotlib.pyplot as plt
 import adamKerasStockPredictor
+import adamFileSearch
+import adamFusionMode
+import pyautogui
 
 print('Booting up...')
 startUp = False
@@ -75,6 +78,7 @@ def takeCommand():
 
 speak("Booting up... One moment Please,,,")
 speak("Bootup complete..")
+print("Bootup Complete")
 
 if __name__=='__main__':
     while True:
@@ -83,7 +87,7 @@ if __name__=='__main__':
         if "adam" in statement:
             startUp = True
             wishMe()
-        if "perform cold shutdown" in statement:
+        if "perform complete shutdown" in statement:
             speak("I am performing a cold shutdown now...")
             break
         while startUp:
@@ -106,7 +110,12 @@ if __name__=='__main__':
                 speak("According to wikipedia.")
                 print(results)
                 speak(results)
-            
+            elif 'take over' in statement and 'game' in statement:
+                speak("Sure thing. How do you want me to control")
+                statement = takeCommand().lower()
+                if 'forward' in statement:
+                    speak("Of course I will keep you character on the right path")
+                    pyautogui.hold('shift', 'w')
             elif 'open fusion' in statement:
                 #OPEN FUSION HERE
                 speak("Let me get that started for you...")
@@ -140,19 +149,25 @@ if __name__=='__main__':
                 statement = takeCommand().lower()
                 if 'not really' in statement or 'no' in statement:
                     speak("Of course... Just browsing then.")
+                    statement = 'dfgrfs'
                 elif 'yeah' in statement or 'yes' in statement:
                     speak("What can I search for you?")
                     statement = takeCommand().lower()
                     speak("Let me see what I can find for you.")
                     kt.search(statement)
                     time.sleep(4)
+                else:
+                    speak("Let me see what I can find for you")
+                    kt.search(statement)
+                    time.sleep(4)
             elif 'file search' in statement or 'find a file' in statement or 'find me a file' in statement:
                 speak("What does the file end in sir?")
-                statement = takeCommand().lower()
-                statement.replace(" ", "")
+                statement = takeCommand().lower().replace(" ", "")
+                speak("What is the name of the file sir?")
+                statement2 = takeCommand().lower().replace(" ", "") + statement
                 speak("I will try to find your file. Please note this may take a few minutes as I am searching your entire drive")
                 try:
-                    print(findFile(statement))
+                    adamFileSearch.fileSearch(statement2, statement)
                     speak("I found your file sir... I printed it out in the terminal for you.")
                 except Exception as e:
                     speak("I cannot seem to find the file... Maybe type it in?")
@@ -161,25 +176,26 @@ if __name__=='__main__':
                         speak('Of course sir.. ')
                         while fileSearchLoop:
                             speak("I have created a line in the terminal for you to put the filename in..")
-                            fileName = input('Type in file name here: ')
+                            fileName = input('Type in file name here (Without extension): ')
+                            fileExtension = fileName + input("Type in the file extension: ")
                             try:
-                                print(findFile(fileName))
+                                adamFileSearch.fileSearch(fileName, fileExtension)
                                 fileSearchLoop = False
                                 speak("Thank you sir... Your file location is printed out in the terminal")
                                 statement = takeCommand().lower()
                                 if 'read' in statement:
-                                    if len(findFile(fileName)) > 50:
+                                    if len(adamFileSearch.fileSearch(fileName, fileExtension)) > 50:
                                         speak("It is rather long sir... Speaking it may take a very long time... Might I suggest jsut reading it?")
                                         statement = takeCommand().lower()
                                         if 'no' in statement or 'nah' in statement or 'read it to me' in statement:
                                             speak("Sure thing sir.. You know best...")
-                                            speak(findFile(fileName))
+                                            speak(adamFileSearch.fileSearch(fileName, fileExtension))
                                         else:
                                             speak("Splendid... It is still in the terminal for you to find")
                                             statement = 'dfgrfs'
                                     else:
                                         speak("Of course sir..")
-                                        speak(findFile(fileName))
+                                        speak(adamFileSearch.fileSearch(fileName, fileExtension))
                                 else:
                                     statement = 'dfgrfs'
                                 time.sleep(1)
@@ -230,7 +246,7 @@ if __name__=='__main__':
 
 
             elif "open stack overflow" in statement:
-                webbrowser.open_new_tab("https://stackoverflow.com/login")
+                webbrowser.open_new_tab("https://stackoverflow.com/")
                 speak("Here is stackoverflow")
 
             elif 'search'  in statement:
@@ -260,5 +276,6 @@ if __name__=='__main__':
                 speak("I apologize.. I cannot seem to match a request...")
                 time.sleep(1)
             speak("Do you need anything else sir?")
+            statement = takeCommand().lower()
 
 time.sleep(2)
