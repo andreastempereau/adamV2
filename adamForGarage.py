@@ -257,7 +257,6 @@ if __name__=='__main__':
                 webbrowser.open_new_tab("https://www.gmail.com")
                 speak("Google Mail open now")
                 time.sleep(4)
-
             elif 'open my classes' in statement:
                 webbrowser.open_new_tab("https://classroom.google.com/u/3/h")
                 speak("Here are your classes sir")

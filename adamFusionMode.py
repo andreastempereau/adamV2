@@ -6,6 +6,8 @@ engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
 engine.setProperty('voice','voices[2].id')
 fusionLoop = True
+statement2 = ""
+i = 0
 
 def speak(text):
     engine.say(text)
@@ -53,3 +55,20 @@ def fusionMode():
                if 'conic' in statement:
                     speak("I am sketchign the conic curve")
                     #CODE TO SKETCH CONIC CURVE
+
+          if "extrude" in statement or 'pull this sketch out' in statement:
+               if "INSERT CODE TO CHECK IF NUMBERS IN STATEMENT" in statement:
+                    if "INSERT CODE TO CHECK IF A SPECIFIC SKETCH WAS SAID" in statement:
+                         if "INSETR CODE TO CHECK IF UNIT OF MEASUREMENT WAS SAID" in statement:
+                              speak("Extruding SPECIFIC SKETCH out SPECIFIC NUMBER SPECIFIC UNITS for you now")
+                              #INSERT CODE TO PERFORM THIS ACTION
+
+               else:
+                    speak("How far do you want this extruded sir?")
+                    statement2 = takeCommand().lower()
+                    if "CHECK IF SPECIFIC SKETCH WAS SAID" in statement:
+                         speak("Extruding SPECIFIC SKETCH" + statement2)
+                    else:
+                         speak("Which sketch sir?")
+                         statement = takeCommand().lower()
+                         
