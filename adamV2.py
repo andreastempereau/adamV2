@@ -170,7 +170,7 @@ if __name__=='__main__':
                     time.sleep(4)
                 else:
                     speak("Let me see what I can find for you")
-                    kt.search(statement)
+                    webbrowser.open_new_tab("https://www.youtube.com/results?search_query=" + statement.replace(" ", "+"))
                     time.sleep(4)
                 
             elif 'open google' in statement:
