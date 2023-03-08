@@ -31,11 +31,23 @@ my_tools = ['hammer', 'dremel', 'needle nosed pliers', 'wood saw',
             'printer filament', 'boat winch', 'aluminum', 'steel rods',
             'drill bits', 'nails', 'screws', 'dremel bits', 'demagnitizer',
             'magnitizer', 'magnet', 'drill', 'impact drill',]
+
+file = open('my_tools.txt', "a")
+for tool in my_tools:
+    file.write(tool + '\n')
+file.close()
+
 tools_in_left_drawer = ['metal drill bits', 'nails', 'screws', 'dremel bits',
                         'wood drill bits',
                         'hammer', 'dremel', 'needle nosed pliers', 'wood saw', 
                         'stepper motors','demagnitizer','magnitizer', 'magnet', 
                         'hot glue', 'scale']
+
+file = open('tools_in_left_drawer.txt', "a")
+for tool in tools_in_left_drawer:
+    file.write(tool + '\n')
+file.close()
+
 tools_in_right_drawer = ['']
 tools_in_top_shelf_box = ['']
 tools_on_top_shelf = ['']
