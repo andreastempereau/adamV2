@@ -75,6 +75,18 @@ def takeCommand():
             print("User was not heard")
             return "None"
         return statement
+def callback(recognizer, audio):
+    print(recognizer.recognize_google(audio))
+
+def backgroundListen(methodToRun):
+    recognizer = sr.Recognizer()
+    mic = sr.Microphone()
+    with mic as source:
+        recognizer.adjust_for_ambient_noise(source)
+    stop_listening = recognizer.listen_in_background(mic, callback)
+    methodToRun()
+    stop_listening()
+
 
 speak("Booting up... One moment Please,,,")
 speak("Bootup complete..")
