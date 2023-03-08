@@ -1,0 +1,13 @@
+speechrecognition
+pyttsx3
+wikipedia
+wolframalpha
+requests
+pywhatkit
+pandas_datareader
+numpy
+pandas
+tensorflow
+keras
+matplotlib
+pyautogui
