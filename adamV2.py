@@ -5,15 +5,12 @@ import wikipedia
 import webbrowser
 import os
 import time
-import subprocess
-import wolframalpha
-import json
-import requests
+import numpy as np
 import subprocess
 import pywhatkit as kt
-import math
+import imutils
 import pandas_datareader as web
-import numpy as np
+import cv2
 import pandas as pd
 from tensorflow import keras
 from sklearn.preprocessing import MinMaxScaler
@@ -49,6 +46,12 @@ def run_exe_and_keep_running(filename):
     process = subprocess.Popen([filename])
     print(f"Started process with PID")
     time.sleep(4)
+
+def screenshot():
+    pyautogui.screenshot("straight_to_disk.png")
+    image = cv2.imread("straight_to_disk.png")
+    cv2.imshow("Screenshot", imutils.resize(image, width=600))
+    cv2.waitKey(0)
 
 def wishMe():
     hour=datetime.datetime.now().hour
@@ -128,6 +131,10 @@ if __name__=='__main__':
                 speak("What is wrong sir?")
                 statement = takeCommand().lower()
                 continue
+            elif 'screenshot' in statement:
+                speak("Sure thing.. Press any key when you are done viewing")
+                screenshot()
+                time.sleep(4)
             elif 'wikipedia' in statement:
                 speak('Checking the web.')
                 statement =statement.replace("wikipedia", "")
