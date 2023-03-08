@@ -102,7 +102,15 @@ if __name__=='__main__':
                 speak('Of course sir. Let me know if you need anything else.')
                 startUp = False
                 break
-
+            elif "watch" and "door" in statement:
+                speak("I will arm the house now...")
+                time.sleep(1)
+                speak("Sensor A3 is offline... shall I run diagnostics?")
+                statement = takeCommand().lower()
+                if "that's fine" or "i know" in statement:
+                    speak("Glad to know it was an intentional disable")
+                    statement = "break2005"
+                
             elif 'wikipedia' in statement:
                 speak('Checking the web.')
                 statement =statement.replace("wikipedia", "")
@@ -261,6 +269,8 @@ if __name__=='__main__':
             elif "no" in statement:
                 speak("Sure thing. Goodbye.")
                 startUp = False
+                break
+            elif "break2005" in statement:
                 break
             elif "later" in statement or "check back with me" in statement:
                 speak("Of course sir...")
