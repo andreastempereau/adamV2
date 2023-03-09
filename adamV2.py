@@ -116,6 +116,116 @@ if __name__=='__main__':
                 speak('Of course sir. Let me know if you need anything else.')
                 startUp = False
                 break
+            elif 'open' in statement:
+                tries = 0
+                while True:
+                    if 'fusion' in statement:
+                        #OPEN FUSION HERE
+                        speak("Let me get that started for you...")
+                        run_exe_and_keep_running(r"C:\Users\Andre\AppData\Local\Autodesk\webdeploy\production\3f77c28c02b1b466e9d910ef562e48d42f47cc2b\Fusion360.exe")
+                        speak("A new project sir?")
+                        statement = takeCommand().lower()
+                        if 'yes' in statement or 'basically' in statement or 'yeah' in statement:
+                            speak("Of course... Would you like me to help analyze some sketchs?")
+                            statement = takeCommand().lower()
+                            if 'sure' in statement or 'yes' in statement:
+                                speak("Let's get started sir... Would you like me to enter observational 3D model mode?")
+                                statement = takeCommand().lower()
+                                if 'sure' in statement or 'yes' in statement:
+                                    speak("Of course sir. Entering now.")
+                                    break
+                                    #MOVE TO FUSIONMANIPULATING VERSION
+                                else:
+                                    speak("I will be on standby if you need help with sketches")
+                                    break
+
+                            elif 'no' in statement or 'not' in statement:
+                                speak("Sure thing sir... I will be on standby...")
+                                time.sleep(4)
+                                break
+                        else:
+                            speak("Let me know if you need help with sketches")
+                            time.sleep(4)
+                            break
+
+                    if 'youtube' in statement:
+                        webbrowser.open_new_tab("https://www.youtube.com")
+                        speak("Opening")
+                        speak("Searching for a specific video?")
+                        statement = takeCommand().lower()
+                        if 'not really' in statement or 'no' in statement:
+                            speak("Of course... Just browsing then.")
+                            statement = 'dfgrfs'
+                            break
+                        elif 'yeah' in statement or 'yes' in statement:
+                            speak("What can I search for you?")
+                            statement = takeCommand().lower()
+                            speak("Let me see what I can find for you.")
+                            kt.search(statement)
+                            time.sleep(4)
+                            break
+                        else:
+                            speak("Let me see what I can find for you")
+                            webbrowser.open_new_tab("https://www.youtube.com/results?search_query=" + statement.replace(" ", "+"))
+                            time.sleep(4)
+                            break
+
+                    if 'gmail' in statement:
+                        webbrowser.open_new_tab("https://www.gmail.com")
+                        speak("Google Mail open now")
+                        time.sleep(4)
+                        break
+
+                    if 'my classes' or 'google classroom' in statement:
+                        webbrowser.open_new_tab("https://classroom.google.com/u/3/h")
+                        speak("Here are your classes sir")
+                        time.sleep(4)
+                        break
+                    
+                    if 'google' in statement:
+                        webbrowser.open_new_tab("https://www.google.com")
+                        speak("Searching for something in particular?")
+                        statement = takeCommand().lower()
+                        if 'not really' in statement or 'no' in statement:
+                            speak("Of course... Just browsing then.")
+                            statement = 'dfgrfs'
+                            break
+                        elif 'yeah' in statement or 'yes' in statement:
+                            speak("What can I search for you?")
+                            statement = takeCommand().lower()
+                            speak("Let me see what I can find for you.")
+                            kt.search(statement)
+                            time.sleep(4)
+                            break
+                        else:
+                            speak("Let me see what I can find for you")
+                            kt.search(statement)
+                            time.sleep(4)
+                            break
+
+                    if "stack overflow" in statement:
+                        webbrowser.open_new_tab("https://stackoverflow.com/")
+                        speak("Here is stackoverflow")
+                        break
+                    else:
+                        if tries > 0:
+                            speak("I am sorry I am having trouble finding it. Would you like to try yourself?")
+                            statement = takeCommand().lower()
+                            if 'yes' in statement or 'yeah' in statement or 'ok' in statement:
+                                speak("Spendid!!")
+                                tries = 0
+                                break
+                            else:
+                                speak("Ok let us try again...")
+                                tries = -1
+                                statement = " "
+                                continue
+                        else:
+                            speak("What can I open for you?")
+                            tries += 1
+                            statement = takeCommand().lower()
+                            continue
+
             elif "watch" and "door" in statement:
                 speak("I will arm the house now...")
                 time.sleep(1)
@@ -156,67 +266,7 @@ if __name__=='__main__':
                     #MOVE TO FUSIONMANIPULATING VERSION
                 else:
                     speak("I will be on standby if you need help with sketches")
-            elif 'open fusion' in statement:
-                #OPEN FUSION HERE
-                speak("Let me get that started for you...")
-                run_exe_and_keep_running(r"C:\Users\Andre\AppData\Local\Autodesk\webdeploy\production\3f77c28c02b1b466e9d910ef562e48d42f47cc2b\Fusion360.exe")
-                speak("A new project sir?")
-                statement = takeCommand().lower()
-                if 'yes' in statement or 'basically' in statement or 'yeah' in statement:
-                    speak("Of course... Would you like me to help analyze some sketchs?")
-                    statement = takeCommand().lower()
-                    if 'sure' in statement or 'yes' in statement:
-                        speak("Let's get started sir... Would you like me to enter observational 3D model mode?")
-                        statement = takeCommand().lower()
-                        if 'sure' in statement or 'yes' in statement:
-                            speak("Of course sir. Entering now.")
-                            #MOVE TO FUSIONMANIPULATING VERSION
-                        else:
-                            speak("I will be on standby if you need help with sketches")
 
-                    elif 'no' in statement or 'not' in statement:
-                        speak("Sure thing sir... I will be on standby...")
-                        time.sleep(4)
-                else:
-                    speak("Let me know if you need help with sketches")
-                    time.sleep(4)
-
-            elif 'open youtube' in statement:
-                webbrowser.open_new_tab("https://www.youtube.com")
-                speak("Opening")
-                speak("Searching for a specific video?")
-                statement = takeCommand().lower()
-                if 'not really' in statement or 'no' in statement:
-                    speak("Of course... Just browsing then.")
-                    statement = 'dfgrfs'
-                elif 'yeah' in statement or 'yes' in statement:
-                    speak("What can I search for you?")
-                    statement = takeCommand().lower()
-                    speak("Let me see what I can find for you.")
-                    kt.search(statement)
-                    time.sleep(4)
-                else:
-                    speak("Let me see what I can find for you")
-                    webbrowser.open_new_tab("https://www.youtube.com/results?search_query=" + statement.replace(" ", "+"))
-                    time.sleep(4)
-                
-            elif 'open google' in statement:
-                webbrowser.open_new_tab("https://www.google.com")
-                speak("Searching for something in particular?")
-                statement = takeCommand().lower()
-                if 'not really' in statement or 'no' in statement:
-                    speak("Of course... Just browsing then.")
-                    statement = 'dfgrfs'
-                elif 'yeah' in statement or 'yes' in statement:
-                    speak("What can I search for you?")
-                    statement = takeCommand().lower()
-                    speak("Let me see what I can find for you.")
-                    kt.search(statement)
-                    time.sleep(4)
-                else:
-                    speak("Let me see what I can find for you")
-                    kt.search(statement)
-                    time.sleep(4)
             elif 'file search' in statement or 'find a file' in statement or 'find me a file' in statement:
                 speak("What does the file end in sir?")
                 statement = takeCommand().lower().replace(" ", "")
@@ -280,15 +330,6 @@ if __name__=='__main__':
                 else:
                     statement = 'dfgrfs'
                 time.sleep(2)
-            elif 'open gmail' in statement:
-                webbrowser.open_new_tab("https://www.gmail.com")
-                speak("Google Mail open now")
-                time.sleep(4)
-
-            elif 'open my classes' in statement:
-                webbrowser.open_new_tab("https://classroom.google.com/u/3/h")
-                speak("Here are your classes sir")
-                time.sleep(4)
 
             elif 'time' in statement:
                 strTime=datetime.datetime.now().strftime("%H:%M:%S")
@@ -301,9 +342,6 @@ if __name__=='__main__':
                 speak("I was built by Andreas. I am a natural language model created to help you.")
                 print("I was built by Andreas. I am a natural language model created to help you.")
 
-            elif "open stack overflow" in statement:
-                webbrowser.open_new_tab("https://stackoverflow.com/")
-                speak("Here is stackoverflow")
 
             elif 'search'  in statement:
                 statement = statement.replace("search", "")
