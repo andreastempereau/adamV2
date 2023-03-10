@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 import adamKerasStockPredictor
 import adamFileSearch
 import adamFusionMode
+import adamPhrases as AP
 import pyautogui
 
 print('Booting up...')
@@ -109,11 +110,11 @@ if __name__=='__main__':
                 continue
 
             if "cancel request" in statement:
-                speak("Of course sir... I will ignore your request")
+                speak(AP.acknowledge() + "... I will ignore your request")
                 time.sleep(3)
 
             elif "good bye" in statement or "ok bye" in statement or "stop" in statement or "nothing" in statement or "leave me alone" in statement or "never mind" in statement or "shutdown" in statement:
-                speak('Of course sir. Let me know if you need anything else.')
+                speak(AP.acknowledge() + '... Let me know if you need anything else.')
                 startUp = False
                 break
             elif 'open' in statement:
@@ -121,26 +122,26 @@ if __name__=='__main__':
                 while True:
                     if 'fusion' in statement:
                         #OPEN FUSION HERE
-                        speak("Let me get that started for you...")
+                        speak(AP.acknowledge() + "Let me get that started for you...")
                         run_exe_and_keep_running(r"C:\Users\Andre\AppData\Local\Autodesk\webdeploy\production\3f77c28c02b1b466e9d910ef562e48d42f47cc2b\Fusion360.exe")
                         speak("A new project sir?")
                         statement = takeCommand().lower()
-                        if 'yes' in statement or 'basically' in statement or 'yeah' in statement:
-                            speak("Of course... Would you like me to help analyze some sketchs?")
+                        if AP.checkYes(statement):
+                            speak(AP.acknowledge() + "... Would you like me to help analyze some sketchs?")
                             statement = takeCommand().lower()
-                            if 'sure' in statement or 'yes' in statement:
+                            if AP.checkYes(statement):
                                 speak("Let's get started sir... Would you like me to enter observational 3D model mode?")
                                 statement = takeCommand().lower()
-                                if 'sure' in statement or 'yes' in statement:
-                                    speak("Of course sir. Entering now.")
+                                if AP.checkYes(statement):
+                                    speak(AP.acknowledge() + "... Entering now.")
                                     break
                                     #MOVE TO FUSIONMANIPULATING VERSION
                                 else:
                                     speak("I will be on standby if you need help with sketches")
                                     break
 
-                            elif 'no' in statement or 'not' in statement:
-                                speak("Sure thing sir... I will be on standby...")
+                            elif AP.checkNo(statement):
+                                speak(AP.acknowledge() + "... I will be on standby...")
                                 time.sleep(4)
                                 break
                         else:
@@ -153,11 +154,11 @@ if __name__=='__main__':
                         speak("Opening")
                         speak("Searching for a specific video?")
                         statement = takeCommand().lower()
-                        if 'not really' in statement or 'no' in statement:
-                            speak("Of course... Just browsing then.")
+                        if AP.checkNo(statement):
+                            speak(AP.acknowledge() + "... Just browsing then.")
                             statement = 'dfgrfs'
                             break
-                        elif 'yeah' in statement or 'yes' in statement:
+                        elif AP.checkYes(statement):
                             speak("What can I search for you?")
                             statement = takeCommand().lower()
                             speak("Let me see what I can find for you.")
@@ -186,11 +187,11 @@ if __name__=='__main__':
                         webbrowser.open_new_tab("https://www.google.com")
                         speak("Searching for something in particular?")
                         statement = takeCommand().lower()
-                        if 'not really' in statement or 'no' in statement:
-                            speak("Of course... Just browsing then.")
+                        if AP.checkNo(statement):
+                            speak(AP.acknowledge() + "... Just browsing then.")
                             statement = 'dfgrfs'
                             break
-                        elif 'yeah' in statement or 'yes' in statement:
+                        elif AP.checkYes(statement):
                             speak("What can I search for you?")
                             statement = takeCommand().lower()
                             speak("Let me see what I can find for you.")
@@ -211,12 +212,12 @@ if __name__=='__main__':
                         if tries > 0:
                             speak("I am sorry I am having trouble finding it. Would you like to try yourself?")
                             statement = takeCommand().lower()
-                            if 'yes' in statement or 'yeah' in statement or 'ok' in statement:
-                                speak("Spendid!!")
+                            if AP.checkYes(statement):
+                                speak(AP.acknowledge())
                                 tries = 0
                                 break
                             else:
-                                speak("Ok let us try again...")
+                                speak(AP.acknowledge() + "...let us try again...")
                                 tries = -1
                                 statement = " "
                                 continue
@@ -227,7 +228,7 @@ if __name__=='__main__':
                             continue
 
             elif "watch" and "door" in statement:
-                speak("I will arm the house now...")
+                speak(AP.acknowledge() + "...I will arm the house now")
                 time.sleep(1)
                 speak("Sensor A3 is offline... shall I run diagnostics?")
                 statement = takeCommand().lower()
@@ -242,7 +243,7 @@ if __name__=='__main__':
                 statement = takeCommand().lower()
                 continue
             elif 'screenshot' in statement:
-                speak("Sure thing.. Press any key when you are done viewing")
+                speak(AP.acknowledge() + "... Press any key when you are done viewing")
                 screenshot()
                 time.sleep(4)
             elif 'wikipedia' in statement:
@@ -253,16 +254,16 @@ if __name__=='__main__':
                 print(results)
                 speak(results)
             elif 'take over' in statement and 'game' in statement:
-                speak("Sure thing. How do you want me to control")
+                speak(AP.acknowledge() + "... How do you want me to control")
                 statement = takeCommand().lower()
                 if 'forward' in statement:
-                    speak("Of course I will keep your character on the right path")
+                    speak(AP.acknowledge() + "...I will keep your character on the right path")
                     pyautogui.hold('shift', 'w')
             elif 'check fusion sketch' in statement or 'check sketch' in statement:
                 speak("Let's get started sir... Would you like me to enter observational 3D model mode?")
                 statement = takeCommand().lower()
-                if 'sure' in statement or 'yes' in statement:
-                    speak("Of course sir. Entering now.")
+                if AP.checkYes(statement):
+                    speak(AP.acknowledge() + "... Entering now.")
                     #MOVE TO FUSIONMANIPULATING VERSION
                 else:
                     speak("I will be on standby if you need help with sketches")
@@ -279,8 +280,8 @@ if __name__=='__main__':
                 except Exception as e:
                     speak("I cannot seem to find the file... Maybe type it in?")
                     statement = takeCommand().lower()
-                    if 'sure' in statement or 'yes' in statement or 'yeah' in statement or 'ok' in statement:
-                        speak('Of course sir.. ')
+                    if AP.checkYes(statement):
+                        speak(AP.acknowledge())
                         while fileSearchLoop:
                             speak("I have created a line in the terminal for you to put the filename in..")
                             fileName = input('Type in file name here (Without extension): ')
@@ -294,14 +295,14 @@ if __name__=='__main__':
                                     if len(adamFileSearch.fileSearch(fileName, fileExtension)) > 50:
                                         speak("It is rather long sir... Speaking it may take a very long time... Might I suggest jsut reading it?")
                                         statement = takeCommand().lower()
-                                        if 'no' in statement or 'nah' in statement or 'read it to me' in statement:
-                                            speak("Sure thing sir.. You know best...")
+                                        if AP.checkNo(statement) or 'read it to me' in statement:
+                                            speak(AP.acknowledge() + "... You know best...")
                                             speak(adamFileSearch.fileSearch(fileName, fileExtension))
                                         else:
-                                            speak("Splendid... It is still in the terminal for you to find")
+                                            speak(AP.acknowledge() + "... It is still in the terminal for you to find")
                                             statement = 'dfgrfs'
                                     else:
-                                        speak("Of course sir..")
+                                        speak(AP.acknowledge())
                                         speak(adamFileSearch.fileSearch(fileName, fileExtension))
                                 else:
                                     statement = 'dfgrfs'
@@ -309,7 +310,7 @@ if __name__=='__main__':
                             except Exception as e:
                                 speak("I still cannot seem to find the file. Maybe check the capilization and spelling? Would you like to try again?")
                                 statement = takeCommand().lower()
-                                if 'yes' in statement or 'sure' in statement or 'ok' in statement or 'yeah' in statement:
+                                if AP.checkYes(statement):
                                     fileSearchLoop = True
                                 else:
                                     speak("Apologies for failing to find it...")
@@ -317,7 +318,7 @@ if __name__=='__main__':
                                     statement = 'dfgrfs'
 
                     else:
-                        speak("Of course sir... Apologies for failing to find it..")
+                        speak(AP.acknowledge() + "... Apologies for failing to find it..")
                         time.sleep(2)
             elif 'stock price' in statement:
                 speak("Creating a Keras Model... Stand by please...")
@@ -325,7 +326,7 @@ if __name__=='__main__':
                 print(adamKerasStockPredictor.trainingDataFunction())
                 statement = takeCommand().lower()
                 if 'model' in statement or 'graph' in statement:
-                    speak("Of course sir...")
+                    speak(AP.acknowledge())
                     adamKerasStockPredictor.closePricePlot()
                 else:
                     statement = 'dfgrfs'
@@ -349,21 +350,21 @@ if __name__=='__main__':
                 time.sleep(3)
 
             elif "log off" in statement or "sign out" in statement:
-                speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
+                speak(AP.acknowledge() + "... your pc will log off in 10 sec make sure you exit from all applications")
                 subprocess.call(["shutdown", "/l"])
 
             elif "no" in statement:
-                speak("Sure thing. Goodbye.")
+                speak(AP.acknowledge() + "... Goodbye.")
                 startUp = False
                 break
             elif "break2005" in statement:
                 break
             elif "later" in statement or "check back with me" in statement:
-                speak("Of course sir...")
+                speak(AP.acknowledge())
                 startUp = False
                 break
             elif "thank you" in statement:
-                speak("Of course sir... I am happy to be of assistance")
+                speak(AP.acknowledge() + "... I am happy to be of assistance")
                 startUp = False
                 break
             elif 'adam' in statement:
