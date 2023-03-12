@@ -25,13 +25,3 @@ def takeCommand():
         return statement
 speak("Hello. This is my test branch. The code will now run")
 
-#CODE BELOW \/ \/ \/
-keepLooping = True
-with pyautogui.hold('shift'):
-     with pyautogui.hold('w'):
-          while True:
-               statement = takeCommand().lower()
-               if 'stop' in statement:
-                    break
-               else:
-                    continue

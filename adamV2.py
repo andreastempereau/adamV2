@@ -162,7 +162,7 @@ if __name__=='__main__':
                             speak("What can I search for you?")
                             statement = takeCommand().lower()
                             speak("Let me see what I can find for you.")
-                            kt.search(statement)
+                            webbrowser.open_new_tab("https://www.youtube.com/results?search_query=" + statement.replace(" ", "+"))
                             time.sleep(4)
                             break
                         else:
@@ -177,7 +177,7 @@ if __name__=='__main__':
                         time.sleep(4)
                         break
 
-                    if 'my classes' or 'google classroom' in statement:
+                    if 'my classes' in statement or 'google classroom' in statement:
                         webbrowser.open_new_tab("https://classroom.google.com/u/3/h")
                         speak("Here are your classes sir")
                         time.sleep(4)
@@ -372,6 +372,7 @@ if __name__=='__main__':
                 speak("What can I do for you?")
                 statement = takeCommand().lower()
                 continue
+
             elif 'dfgrfs' in statement:
                 time.sleep(1)
             else:
@@ -379,5 +380,9 @@ if __name__=='__main__':
                 time.sleep(1)
             speak("Do you need anything else sir?")
             statement = takeCommand().lower()
+            if AP.checkYes(statement):
+                speak(AP.acknowledge() + "...what can I do for you?")
+                statement = takeCommand().lower()
+                continue
 
 time.sleep(2)
