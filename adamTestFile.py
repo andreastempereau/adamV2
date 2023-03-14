@@ -2,6 +2,9 @@
 import pyautogui
 import speech_recognition as sr
 import pyttsx3
+import mysql.connector
+from mysql.connector import Error
+import pandas as pd
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
 engine.setProperty('voice','voices[2].id')
