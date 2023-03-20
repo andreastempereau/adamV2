@@ -24,6 +24,7 @@ engine.setProperty('voice','voices[2].id')
 
 def speak(text):
     engine.say(text)
+    print(text)
     engine.runAndWait()
 
 def run_exe_and_keep_running(filename):
@@ -53,6 +54,8 @@ def takeCommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
+        r.pause_threshold = 1
+        r.adjust_for_ambient_noise(source, duration=1)
         audio=r.listen(source)
         try:
             statement=r.recognize_google(audio,language='en-in')
