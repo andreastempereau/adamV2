@@ -25,6 +25,7 @@ import adamPhrases as AP
 import pyautogui
 import adamMethod as a
 import airQualityChecker
+import runFile as r
 
 print('Booting up...')
 startUp = False
@@ -34,6 +35,7 @@ chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
 a.speak("Booting up... One moment Please,,,")
 a.speak("Bootup complete..")
+adam = r.app()
 print("Bootup Complete")
 
 if __name__=='__main__':
