@@ -33,12 +33,10 @@ fileSearchLoop = True
 chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
 
-a.speak("Booting up... One moment Please,,,")
-a.speak("Bootup complete..")
-adam = r.app()
-print("Bootup Complete")
-
-if __name__=='__main__':
+def AdamStart():
+    a.speak("Booting up... One moment Please,,,")
+    a.speak("Bootup complete..")
+    print("Bootup Complete")
     while True:
         time.sleep(0.5)
         statement = a.takeCommand().lower()

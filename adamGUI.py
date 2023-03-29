@@ -1,7 +1,10 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-import adamTestFile as AT
+import adamTestFile
+import adamV2
+import sys
+import time
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -72,6 +75,17 @@ class App(customtkinter.CTk):
         self.progressbar_1.configure(mode="indeterminnate")
         self.progressbar_1.start()
 
+    def print_slow(str):
+        for letter in str:
+            sys.stdout.write(letter)
+            sys.stdout.flush()
+            time.sleep(0.1)
+    def insert_slow(str):
+        for letter in str:
+            sys.stdout.write(letter)
+            sys.stdout.flush()
+            time.sleep(0.1)
+
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="PASSWORD: ", title="ADMIN ACCESS")
         adminPassword = dialog.get_input()
@@ -86,6 +100,7 @@ class App(customtkinter.CTk):
     
     def entryRequest(self):
         self.textbox.insert("0.0", "ENTRY RECIEVED \n")
+        self.textbox.insert("0.0", self.entry.get() + "\n")
         self.progressbar_1.stop()
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
@@ -105,13 +120,14 @@ class App(customtkinter.CTk):
         self.startButton.configure(state="disabled")
         self.endButton.configure(state="enabled")
         print(self.number)
-        AT.testPrint()
+        adamV2.AdamStart()
 
     def endProgramEvent(self):
         print("TERMINATE BUTTON CLICKED")
         self.endButton.configure(state="disabled")
         self.startButton.configure(state="enabled")
         self.textbox.insert("0.0", "PROGRAM TERMINATED \n" )
+        adamV2.exit()
 
     def adminButtonEvent(self):
         print("ADMIN BUTTON PRESSED")

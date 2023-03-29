@@ -6,6 +6,7 @@ import time
 import subprocess
 import imutils
 import cv2
+import sys
 import pyautogui
 
 outputString = ""
@@ -67,6 +68,14 @@ def takeCommand():
         return statement
 def callback(recognizer, audio):
     print(recognizer.recognize_google(audio))
+
+def print_slow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+print_slow("Type whatever you want here")
 
 def backgroundListen(methodToRun):
     recognizer = sr.Recognizer()
