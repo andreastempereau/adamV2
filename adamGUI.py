@@ -1,10 +1,12 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-import adamTestFile
-import adamV2
+#import adamTestFile
+#import adamV2
+#import tkthread; tkthread.patch()
 import sys
 import time
+import threading
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -75,28 +77,53 @@ class App(customtkinter.CTk):
         self.progressbar_1.configure(mode="indeterminnate")
         self.progressbar_1.start()
 
-    def print_slow(str):
+    def insert_slow(self, str, t):
+        self.textbox.insert("0.0", "\n")
         for letter in str:
-            sys.stdout.write(letter)
-            sys.stdout.flush()
-            time.sleep(0.1)
-    def insert_slow(str):
-        for letter in str:
-            sys.stdout.write(letter)
-            sys.stdout.flush()
-            time.sleep(0.1)
+            self.textbox.insert("0.0", letter)
+            self.update()
+            time.sleep(t)
+        self.textbox.insert("0.0", "\n")
+
+
+    '''def handleInsertSlow(self):
+        startThread = self.insert_slow("TEST")
+        startThread.start()
+        self.monitor(startThread)'''
+
+    '''def monitor(self, thread):
+        if thread.is_alive():
+            # check the thread every 100ms
+            self.after(100, lambda: self.monitor(thread))
+        else:
+            self.textbox.insert'''
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="PASSWORD: ", title="ADMIN ACCESS")
         adminPassword = dialog.get_input()
         if adminPassword == "Password":
-            self.textbox.insert("0.0",  "-"*30 + "\n\nADMIN ACCESS GRANTED\n\n" + "-"*30 + "\n")
+            str = "".join(reversed("ADMIN ACCESS GRANTED"))
+            self.insertText(str, 0.02)
         else:
-            self.textbox.insert("0.0",  "-"*30 + "\n\nADMIN ACCESS DENIED\n\n" + "-"*30 + "\n")
+            str = "".join(reversed("ADMIN ACCESS DENIED"))
+            self.insertText(str, 0.02)
             self.adminButton.configure(state="disabled")
 
-    def insert(self):
-        super().insert()
+    def insertText(self, str, t2):
+        print(str)
+        self.tspacer(str)
+        self.insert_slow(str, t2)
+        self.bspacer(str)
+    def reverse(str):
+        i = len(str) - 1
+        out = ""
+        while i>-1:
+            out+= str[i-1, i]
+            i -= 1;
+    def tspacer(self, str):
+        self.textbox.insert("0.0", "-"*(len(str)*2) + "\n\n")
+    def bspacer(self, str):
+        self.textbox.insert("0.0", "\n\n" + "-"*(len(str)*2))
     
     def entryRequest(self):
         self.textbox.insert("0.0", "ENTRY RECIEVED \n")
@@ -114,26 +141,24 @@ class App(customtkinter.CTk):
         self.textbox.insert("0.0", statement)
 
     def startButtonEvent(self):
-        print("START BUTTON CLICKED")
-        self.number += 1
-        self.textbox.insert("0.0", "PROGRAM STARTED \n")
         self.startButton.configure(state="disabled")
         self.endButton.configure(state="enabled")
+        str = "".join(reversed("PROGRAM STARTED"))
+        self.insertText(str, 0.02)
+        self.number += 1
+        self.update()
         print(self.number)
-        adamV2.AdamStart()
+        #adamV2.AdamStart()
 
     def endProgramEvent(self):
         print("TERMINATE BUTTON CLICKED")
         self.endButton.configure(state="disabled")
         self.startButton.configure(state="enabled")
-        self.textbox.insert("0.0", "PROGRAM TERMINATED \n" )
-        adamV2.exit()
+        str = "".join(reversed("PROGRAM TERMINATED"))
+        self.insertText(str, 0.02)
+        #adamV2.exit()
 
     def adminButtonEvent(self):
         print("ADMIN BUTTON PRESSED")
         self.open_input_dialog_event()
 
-
-"""if __name__ == "__main__":
-    app = App()
-    app.mainloop()"""

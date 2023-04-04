@@ -7,10 +7,11 @@ import sys
 
 # Test Code Goes Here \/ \/
 
-def print_slow(str):
-    for letter in str:
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(0.05)
-
-print_slow("Type whatever you want here")
+def reverse(str):
+    i = 0
+    i = len(str) - 1
+    out = ""
+    while i>-1:
+        out+= str[i]
+        i -= 1
+print(reverse("TSET"))
